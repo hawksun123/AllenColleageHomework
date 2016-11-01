@@ -1,83 +1,95 @@
+/* 
+ 
+  統一發票兌獎: 
+  統一發票是一個八位數字(整數)的對獎方式，有三個特別獎號及三個頭獎獎號，獎金則是根據下
+  面規則給付:
+  和特別獎號碼完全相同         獎金 2000000 元 
+  和頭獎號碼完全相同          獎金  200000 元 
+  和頭獎號碼最後 7 位數字相同，獎金   40000 元 
+  和頭獎號碼最後 6 位數字相同，獎金   10000 元 
+  和頭獎號碼最後 5 位數字相同，獎金    4000 元 
+  和頭獎號碼最後 4 位數字相同，獎金    1000 元 
+  和頭獎號碼最後 3 位數字相同，獎金     200 元
+ 
+  Copyright (c) 2016 by Hawk Sun
+ 
+*/
+
 #include <stdio.h>
+#include <string.h>
+#include <locale.h>
+
+#define SPECIAL_NO_COUNT 3
+#define FIRST_NO_COUNT 3
+#define USER_NO_COUNT 100
+#define RECEIPT_LEN 8
+#define SECCESS 8
+#define DIGITS_COMPARE_TIMES RECEIPT_LEN - 3 + 1
 
 int main(void)
 {
-	int a, b, c, d, e, f, g, h, i, total;
-	total=0;
-	
+  char  specialNo[SPECIAL_NO_COUNT][9];
+  char  firstNo[FIRST_NO_COUNT][9];
+  char  userNo[USER_NO_COUNT][9];
+
+  int   price[] = {200000, 40000, 10000, 4000, 1000, 200};
+  int   loop1, loop2, loop3;
+	int   total = 0;
+  int   equalFlag;
+  int   index;
+
 	printf("特別獎號碼\n請輸入第一個號碼:");
-	scanf("%d", &a);
+  scanf("%s", specialNo[0]);
 	printf("請輸入第二個號碼:");
-	scanf("%d", &b);
+  scanf("%s", specialNo[1]);
 	printf("請輸入第三個號碼:");
-	scanf("%d", &c);
+  scanf("%s", specialNo[2]);
 	
 	printf("頭獎號碼\n請輸入第一個號碼:");
-	scanf("%d", &d);
+  scanf("%s", firstNo[0]);
 	printf("請輸入第二個號碼:");
-	scanf("%d", &e);
+	scanf("%s", firstNo[1]);
 	printf("請輸入第三個號碼:");
-	scanf("%d", &f);
-	
-	printf("使用者發票號碼\n請輸入第一個號碼:");
-	scanf("%d", &g);
-	printf("請輸入第二個號碼:");
-	scanf("%d", &h);
-	printf("請輸入第三個號碼:");
-	scanf("%d", &i);
-	
+	scanf("%s", firstNo[2]);
+
+  printf("使用者發票號碼\n");
+
 	/*特別獎獎金計算*/
-	if (g==a || g==b || g==c)
-	  total+=2000000;
-	
-	if (h==a || h==b || h==c)
-	  total+=2000000;
-	
-	if (i==a || i==b || i==c)
-	  total+=2000000;
+
+  for (loop1 = 0; loop1 < USER_NO_COUNT; loop1++) {
+    printf("請輸入第 %d 個號碼:", loop1 + 1);
+    scanf("%s", userNo[loop1]);
+
+    for (loop2 = 0; loop2 < SPECIAL_NO_COUNT; loop2++) {
+      if (0 == strcmp(userNo[loop1], specialNo[loop2])){
+        total += 2000000;
+        printf("特別獎獎金%d元\n", total);
+      }
+    }
+  }
 	
 	/*頭獎獎金計算*/
-	if (g==d || g==e || g==f)
-	  total+=200000;
-	else if (g-g/10000000*10000000==d-d/10000000*10000000 || g-g/10000000*10000000==e-e/10000000*10000000 || g-g/10000000*10000000==f-f/10000000*10000000)
-		   total+=40000;
-		else if (g-g/1000000*1000000==d-d/1000000*1000000 || g-g/1000000*1000000==e-e/1000000*1000000 || g-g/1000000*1000000==f-f/1000000*1000000)
-			   total+=10000;
-			else if (g-g/100000*100000==d-d/100000*100000 || g-g/100000*100000==e-e/100000*100000 || g-g/100000*100000==f-f/100000*100000)
-				   total+=4000;
-				else if (g-g/10000*10000==d-d/10000*10000 || g-g/10000*10000==e-e/10000*10000 || g-g/10000*10000==f-f/10000*10000)
-					   total+=1000;
-					else if (g-g/1000*1000==d-d/1000*1000 || g-g/1000*1000==e-e/1000*1000 || g-g/1000*1000==f-f/1000*1000)
-						   total+=200;
-						   
-	if (h==d || h==e || h==f)
-	  total+=200000;
-	else if (h-h/10000000*10000000==d-d/10000000*10000000 || h-h/10000000*10000000==e-e/10000000*10000000 || h-h/10000000*10000000==f-f/10000000*10000000)
-		   total+=40000;
-		else if (h-h/1000000*1000000==d-d/1000000*1000000 || h-h/1000000*1000000==e-e/1000000*1000000 || h-h/1000000*1000000==f-f/1000000*1000000)
-			   total+=10000;
-			else if (h-h/100000*100000==d-d/100000*100000 || h-h/100000*100000==e-e/100000*100000 || h-h/100000*100000==f-f/100000*100000)
-				   total+=4000;
-				else if (h-h/10000*10000==d-d/10000*10000 || h-h/10000*10000==e-e/10000*10000 || h-h/10000*10000==f-f/10000*10000)
-					   total+=1000;
-					else if (h-h/1000*1000==d-d/1000*1000 || h-h/1000*1000==e-e/1000*1000 || h-h/1000*1000==f-f/1000*1000)
-						   total+=200;
 
-	if (i==d || i==e || i==f)
-	  total+=200000;
-	else if (i-i/10000000*10000000==d-d/10000000*10000000 || i-i/10000000*10000000==e-e/10000000*10000000 || i-i/10000000*10000000==f-f/10000000*10000000)
-		   total+=40000;
-		else if (i-i/1000000*1000000==d-d/1000000*1000000 || i-i/1000000*1000000==e-e/1000000*1000000 || i-i/1000000*1000000==f-f/1000000*1000000)
-			   total+=10000;
-			else if (i-i/100000*100000==d-d/100000*100000 || i-i/100000*100000==e-e/100000*100000 || i-i/100000*100000==f-f/100000*100000)
-				   total+=4000;
-				else if (i-i/10000*10000==d-d/10000*10000 || i-i/10000*10000==e-e/10000*10000 || i-i/10000*10000==f-f/10000*10000)
-					   total+=1000;
-					else if (i-i/1000*1000==d-d/1000*1000 || i-i/1000*1000==e-e/1000*1000 || i-i/1000*1000==f-f/1000*1000)
-						   total+=200;
-						
+  for (loop1 = 0; loop1 < USER_NO_COUNT; loop1++) {
+    for (loop2 = 0; loop2 < FIRST_NO_COUNT; loop2++) {
+      for (loop3 = 0; loop3 < DIGITS_COMPARE_TIMES; loop3++) {
+          equalFlag = true;
+          for (index = loop3; index <= RECEIPT_LEN -1 ; index++) {
+            if (userNo[loop1][index] != firstNo[loop2][index]) {
+              equalFlag = false;
+              index = RECEIPT_LEN; // exit this loop
+            }
+          }
+          if (equalFlag) { // all digits are equal
+            total += price[loop3];
+            printf("頭獎獎金%d元\n", total);
+            loop3 = DIGITS_COMPARE_TIMES; // exit the loop3, means to compare the next number
+          }
+        }
+    }
+  }
 	
-	printf("獎金%d元", total);
+	printf("\n總獎金%d元", total);
 	
-	return 0;
+	return SECCESS;
 }
