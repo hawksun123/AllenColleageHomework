@@ -35,13 +35,15 @@
 */
 
 #include <iostream>
+#include <string>
 using namespace std;
 
 #define CLIENTS  3
 
 int main(void)
 {
-  char  clients[][3] = {"一", "二", "三"};
+  // clients[][3] = {"一", "二", "三"};
+  string clients[] = {"一", "二", "三"};
   int   moneyShouldPay[CLIENTS];
   int   paidMoney[CLIENTS];
   int   change[CLIENTS];
@@ -60,7 +62,7 @@ int main(void)
   for (loop = 0; loop < CLIENTS ; loop++) {
     cout << "結果" << clients[loop] << endl;
       if (change[loop] < 0) {
-        cout << "金額不足\n";
+        cout << "金額不足" << endl;
         continue;
       }
       int remainMoney = change[loop];
