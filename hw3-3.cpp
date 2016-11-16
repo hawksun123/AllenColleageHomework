@@ -78,7 +78,7 @@ int main(void)
     // ÀY¼ú¼úª÷­pºâ
     for (loop2 = 0; loop2 < FIRST_PRICE_COUNT; loop2++) {
       for (loop3 = 0; loop3 < DIGITS_COMPARE_TIMES; loop3++) {
-        if (0 == strcmp((userNo[loop1] + loop3), (firstPrice[loop2] + loop3))){; // win
+        if (0 == strcmp((userNo[loop1] + loop3), (firstPrice[loop2] + loop3))){ // win
             total += price[loop3 + 1];
 #if DEBUG
             printf("userNo[%d][%d] = %s, firstPrice[%d][%d] = %s\n", \
