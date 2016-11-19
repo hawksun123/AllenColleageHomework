@@ -31,27 +31,23 @@
  
 */
 
-#include <stdio.h>
-#include <string.h>
-#include <locale.h>
+#include "c_common.h"
 
 #define DEBUG 0
 #define SPECIAL_PRICE_COUNT 3
 #define FIRST_PRICE_COUNT 3
 #define USER_NO_COUNT 3
 #define RECEIPT_LEN 8
-#define SUCCESS 8
 #define DIGITS_COMPARE_TIMES RECEIPT_LEN - 3 + 1
 
-void InputPriceReceiptNo(char array[][9] , int count);
+void InputPriceReceiptNo(char array[][9], int count);
 
-int main(void)
-{
+int main(void) {
   char  specialPrice[SPECIAL_PRICE_COUNT][9];
   char  firstPrice[FIRST_PRICE_COUNT][9];
   char  userNo[USER_NO_COUNT][9];
 
-  int   price[] = {2000000, 200000, 40000, 10000, 4000, 1000, 200};
+  int   price[] = { 2000000, 200000, 40000, 10000, 4000, 1000, 200 };
   int   loop1, loop2, loop3;
   int   total = 0;
 
@@ -63,46 +59,44 @@ int main(void)
 
   printf("使用者發票號碼\n");
   InputPriceReceiptNo(userNo, USER_NO_COUNT);
-  
+
   for (loop1 = 0; loop1 < USER_NO_COUNT; loop1++) {
     // 特別獎獎金計算
     for (loop2 = 0; loop2 < SPECIAL_PRICE_COUNT; loop2++) {
-        if (0 == strcmp(userNo[loop1], specialPrice[loop2])){ // win
-          total += price[0];
-  #if DEBUG
-          printf("特別獎獎金%d元\n", total);
-  #endif
-        }
+      if (0 == strcmp(userNo[loop1], specialPrice[loop2])) { // win
+        total += price[0];
+#if DEBUG
+        printf("特別獎獎金%d元\n", total);
+#endif
+      }
     } // loop2
 
     // 頭獎獎金計算
     for (loop2 = 0; loop2 < FIRST_PRICE_COUNT; loop2++) {
       for (loop3 = 0; loop3 < DIGITS_COMPARE_TIMES; loop3++) {
-        if (0 == strcmp((userNo[loop1] + loop3), (firstPrice[loop2] + loop3))){ // win
-            total += price[loop3 + 1];
+        if (0 == strcmp((userNo[loop1] + loop3), (firstPrice[loop2] + loop3))) { // win
+          total += price[loop3 + 1];
 #if DEBUG
-            printf("userNo[%d][%d] = %s, firstPrice[%d][%d] = %s\n", \
-                   loop1, loop3, userNo[loop1] + loop3, loop2, loop3, firstPrice[loop2] + loop3);
-            printf("頭獎獎金%d元\n", total);
+          printf("userNo[%d][%d] = %s, firstPrice[%d][%d] = %s\n",\
+                     loop1, loop3, userNo[loop1] + loop3, loop2, loop3, firstPrice[loop2] + loop3);
+          printf("頭獎獎金%d元\n", total);
 #endif
-            break; // exit the loop3, means to compare the next number
-          }
+          break; // exit the loop3, means to compare the next number
+        }
       } // loop3
     } // loop2
   } // loop1
-  
+
   printf("\n獎金%d元", total);
-  
+
   return SUCCESS;
 }
 
-void InputPriceReceiptNo(char array[][9] , int count)
-{
+void InputPriceReceiptNo(char array[][9], int count) {
   int   loop;
-  char  chtDigits[][3] = {"一", "二", "三","四","五","六","七","八","九"};
 
   for (loop = 0; loop < count; loop++) {
-    printf("請輸入第%s個號碼:", chtDigits[loop]);
+    printf("請輸入第%s個號碼:", chtDigit[loop]);
     scanf("%s", array[loop]);
   }
 }

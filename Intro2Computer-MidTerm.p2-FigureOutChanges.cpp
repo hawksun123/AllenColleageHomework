@@ -29,21 +29,17 @@
   100 元 2
   1 元 4
  
-  說明: 最後一列輸出不換行。使用者需輸入部分黑色文字為提示字，須完全一樣評分系統才會通
-  過，紅色數字為使用者輸入(評分系統測試資料可能會有不同)，結果部份則為使用者所輸入的數
+  說明: 最後一列輸出不換行。使用者需輸入部分:前為提示字，須完全一樣評分系統才會通
+  過，:後為使用者輸入(評分系統測試資料可能會有不同)，結果部份則為使用者所輸入的數
   及程式計算判斷後所得到之結果。□表示空白。
 */
 
-#include <iostream>
-#include <string>
-using namespace std;
+#include "c++common.h"
 
 #define CLIENTS  3
 
 int main(void)
 {
-  // clients[][3] = {"一", "二", "三"};
-  string clients[] = {"一", "二", "三"};
   int   moneyShouldPay[CLIENTS];
   int   paidMoney[CLIENTS];
   int   change[CLIENTS];
@@ -52,7 +48,7 @@ int main(void)
   int   loop, loop1;
  
   for (loop = 0; loop < CLIENTS ; loop++) {
-    cout << "客人" << clients[loop] << endl << "應付金額:";
+    cout << "客人" << chtDigit[loop] << endl << "應付金額:";
     cin >> moneyShouldPay[loop];
     cout << "實際交付:";
     cin >> paidMoney[loop];
@@ -60,7 +56,7 @@ int main(void)
   }
 
   for (loop = 0; loop < CLIENTS ; loop++) {
-    cout << "結果" << clients[loop] << endl;
+    cout << "結果" << chtDigit[loop] << endl;
       if (change[loop] < 0) {
         cout << "金額不足" << endl;
         continue;
@@ -73,5 +69,5 @@ int main(void)
         remainMoney %= moneyUnit[loop1];
       }
   }
-  return 0;
+  return SUCCESS;
 }

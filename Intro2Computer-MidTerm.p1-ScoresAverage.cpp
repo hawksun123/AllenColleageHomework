@@ -27,18 +27,12 @@
   及程式判斷後所得到之結果。□表示空白。 
 
 */
-
-#include <iostream>
-#include <string>
-#include <iomanip> // for setprecision
-using namespace std;
+#include "c++common.h"
 
 #define STUDENTS  3
 #define SUBJECTS  3
-#define SUCCESS   0
 
 int main(void) {
-  string  students[] = { "一", "二", "三" };
   string  subjects[] = { "國文", "英文", "數學" };
 
   int     scores[STUDENTS][SUBJECTS] = { 0 };
@@ -49,7 +43,7 @@ int main(void) {
   int     loop, loop1;
 
   for (loop = 0; loop < STUDENTS; loop++) {
-    cout << "成績" << students[loop] << endl;
+    cout << "成績" << chtDigit[loop] << endl;
     for (loop1 = 0; loop1 < SUBJECTS; loop1++) {
       cout << subjects[loop1] << ":";
       cin >> scores[loop][loop1];
