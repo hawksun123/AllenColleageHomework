@@ -1,7 +1,7 @@
 /*
   ┮孔 "Armstrong 计" 琌 k 计俱计ㄤ计ぇ k Ωよ羆㎝单赣计セōㄒ153
-  琌 3 计 333 153 1 5 3 =++  153 琌 Armstrong 计
-   1634 琌 4 计 4444 1634 1 6 3 4 =+++  153 琌 Armstrong 计
+  琌 3 计 153 = 1^3 + 5^3 + 3^3 153 琌 Armstrong 计
+   1634 琌 4 计 1634 = 1^4 + 6^4 + 3^4 + 4^4 153 琌 Armstrong 计
   糶祘Α琵ㄏノ块俱计 N (N  2147483647)祘Α玥耞ㄏノ块计琌
    Armstrong 计挡狦ㄤい璝琌 Armstrong 计惠ㄌㄤ计 k Ωよ
   惠ㄏノ块场だ叫矗ボ块ゅ癟琵ㄏノ块
@@ -12,71 +12,77 @@
   挡狦:Armstrong 计〖1〖125〖27
   挡狦:ぃ琌 Armstrong 计
   挡狦:ぃ琌 Armstrong 计
-  弧: 程块ぃ传︽〖ボフ
+  弧: 程块ぃ传︽
+ 
+  ***** stoi() is c++11 standard, so use "g++ -std=c++11" to compile ! *****
 */
-#include <stdio.h>
+#include "c++common.h"
 #include <math.h>
 
+#define DEBUG 0
 #define NUMBERS 3
+#define MAX_INT32_VAL 2147483647
+#define MAX_DIGIT_LEN 10    // length of 2147483647
 
-int main(void)
-{
-	int numbers[NUMBERS];
-  int tmpNum;
-	char chinesenum[NUMBERS][3] = {"", "", ""};
-	int loop;
-	for (loop = 0; loop < NUMBERS; loop++) {
-		do {
-			printf("叫块材%s俱计:", chinesenum[loop]);
-			scanf("%d", &numbers[loop]);
-		} while (numbers[loop] >= 2147483647);
-	}
-	
-	for (loop = 0; loop < NUMBERS; loop++) { 
-		printf("挡狦%s:", chinesenum[loop]); 
-		//―碭计 
-		int times = 0;
-    tmpNum = numbers[loop];
-		while (tmpNum > 0) {
-			tmpNum /= 10;
-			times++;
-		}
-		
-		//―Ωよ羆
-		int total = 0;
-		int number;
+class Armstrong {
+public:
+  string  strNumber;
+  bool    IsArmstrong();
+};
 
-    tmpNum =  numbers[loop];
-		while (tmpNum > 0) {
-			number = tmpNum%10;
-			total += pow(number, times);
-			tmpNum /= 10;
-		}
-		// Is it a Armstrong number ?
-		if (total == numbers[loop]) {
-			printf("Armstrong计");
-			
-			int loop2;
-			int pownum[times];
-			for (loop2 = 0; loop2 < times; loop2++) {
-				number = numbers[loop]%10;
-				pownum[loop2] = pow(number, times);
-				numbers[loop] /= 10;
-			}
-			
-			tmpNum = times;
-			while (tmpNum-- >= 0) {
-				printf(" %d", pownum[tmpNum]);
-			}
-		}
-		else {
-			printf("ぃ琌Armstrong计");
-		}
-		
-		if (loop != NUMBERS-1) {
-			printf("\n");
-		}
-	} 
-	
-	return 0;
+bool Armstrong::IsArmstrong() {
+  int power[MAX_DIGIT_LEN];
+  int total = 0;
+  int loop; 
+  bool armstrongFlag;
+
+  for (loop = 0; loop < strNumber.size(); loop++) {
+    power[loop] = pow((strNumber[loop] - '0'), strNumber.size());
+#if DEBUG
+    if (!loop) {
+      cout << endl;
+    }
+    cout << "power[" << loop << "] = " <<  power[loop] << endl;
+#endif
+    total += power[loop];
+  }
+#if DEBUG
+  cout << "total = " <<  total << endl;
+#endif
+
+  armstrongFlag = (total == stoi(strNumber, nullptr, 10)); // nullptr: start from 1st char, 10: 10 base, 
+  if (armstrongFlag) {
+    cout << "Armstrong 计";
+    for (loop = 0; loop < strNumber.size(); loop++) {
+      cout << " " << power[loop];
+    }
+  } else {
+    cout << "ぃ琌 Armstrong 计";
+  }
+  return armstrongFlag;
 }
+
+Armstrong armstrong[NUMBERS];
+
+int main(void) {
+  unsigned long long tmpInt;
+  int   loop;
+
+  for (loop = 0; loop < NUMBERS; loop++) {
+    do {
+      cout << "叫块材" << chtDigit[loop] << "俱计:";
+      cin >> tmpInt;
+    } while (tmpInt >= MAX_INT32_VAL || tmpInt < 0);
+    armstrong[loop].strNumber = to_string(tmpInt); // convert impInt to string
+  }
+
+  for (loop = 0; loop < NUMBERS; loop++) {
+    cout << "挡狦" << chtDigit[loop] << ":";
+    armstrong[loop].IsArmstrong();
+    if (loop != NUMBERS - 1) {
+      cout << endl;
+    }
+  }
+  return SUCCESS;
+}
+
