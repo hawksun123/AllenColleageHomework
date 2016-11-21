@@ -63,7 +63,7 @@ for loop1 in range(0, USER_NO_COUNT):
     if (userNo[loop1] == specialPrice[loop2]): # win
       total += price[0]
       if DEBUG:
-        print("特別獎獎金%d元\n", total)
+        print("特別獎獎金%d元\n" % total)
   # loop2
 
   # 頭獎獎金計算
@@ -74,10 +74,10 @@ for loop1 in range(0, USER_NO_COUNT):
         if DEBUG:
           print("userNo[%d][%d:] = %s, firstPrice[%d][%d:] = %s\n" 
               % (loop1, loop3, userNo[loop1][loop3:], loop2, loop3, firstPrice[loop2][loop3:]))
-          print("頭獎獎金%d元\n", total)
+          print("頭獎獎金%d元\n" % total)
         break # exit the loop3, means to compare the next number
 # loop1
 
-print("\n獎金%d元", total)
+print("\n獎金%d元" % total, end=" ")
 
 
