@@ -1,8 +1,9 @@
 /*
 
 請寫一程式，可以找出 n 個整數中第 i 個大的整數。(n 和 i 均小於等於 20) 
+Note: Use C standard liberary qsort() to do the sort.
 程式首先分別讓使用者輸入 i 跟 n，接著讓使用者輸入 n 個整數(個數會根據前面使用者輸入的 n
-有所變動)。 程式則根據輸入的數中找到第 i 個大的數，並輸出結果。 測試資料總共會有兩組資料作測試。 
+有所變動)。 程式則根據輸入的數中找到第 i 個大的數，並輸出結果。 測試資料總共會有兩組資料作測試。
  
 需使用者輸入部分，請先印出提示輸入文字訊息後再讓使用者輸入。程式執行輸出畫面如下: 
  
@@ -37,7 +38,7 @@
 #define DEBUG			1
 
 // function declaration
-void DesendingSort(int N[]);
+int cmpFunc (const void * a, const void * b);
 #if DEBUG
 void printArray(int N[]);
 #endif
@@ -61,7 +62,15 @@ int main(void) {
 			printf("請輸入第%d個整數:", loop2 + 1);
 			scanf("%d", &N[loop][loop2]);
 		}
-		DesendingSort(N[loop]);
+#if DEBUG
+	printf("Before sorting: ");
+	printArray(N[loop]);
+#endif
+		qsort(N[loop], n[loop], sizeof(int), cmpFunc);
+#if DEBUG
+	printf("After sorting: ");
+	printArray(N[loop]);
+#endif
 	}
 
 	for (loop = 0; loop < NUM_OF_TEST; loop++) {
@@ -73,38 +82,6 @@ int main(void) {
 	}
 	return SUCCESS;
 }
-/*
-
-	Sort array N from biggest number to smallest number
-
-*/
-void DesendingSort(int N[]) {
-	bool	exchange = false;
-	int		tmp;
-	int		loop;
-
-#if DEBUG
-	printf("Before sorting: ");
-	printArray(N);
-#endif
-
-	do {
-		exchange = false;
-		for (loop = 0; loop < MAX_DIGIT - 1; loop++) {
-			if (N[loop] < N[loop + 1]) {
-				tmp = N[loop];
-				N[loop] = N[loop + 1];
-				N[loop + 1] = tmp;
-				exchange = true;
-			}
-		}
-	} while (exchange);
-
-#if DEBUG
-	printf("After sorting: ");
-	printArray(N);
-#endif
-}
 
 void printArray(int N[]) {
 	int	loop;
@@ -112,5 +89,12 @@ void printArray(int N[]) {
 		printf("%d ", N[loop]);
 	}
 	printf("\n");
+}
+
+/*
+	Tell qsort() to do the decending sort
+*/
+int cmpFunc (const void * a, const void * b) {
+   return ( *(int*)b - *(int*)a );
 }
 
