@@ -57,7 +57,7 @@ int main(void) {
 		do {
 			printf("請輸入n:");
 			scanf("%d", &n[loop]);
-		} while (n[loop] < 1 || n[loop] > MAX_DIGIT);
+		} while (n[loop] < i[loop] || n[loop] > MAX_DIGIT);
 		for (loop2 = 0; loop2 < n[loop]; loop2++) {
 			printf("請輸入第%d個整數:", loop2 + 1);
 			scanf("%d", &N[loop][loop2]);
