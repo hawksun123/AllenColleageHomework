@@ -1,22 +1,29 @@
 #include <stdio.h>
 
 #define NUMBERS 2
+#define DEBUG			1
+#define	MAX_DIGIT 20
+
+#if DEBUG
+void printArray(int N[]);
+#endif
+
 int main(void) {
 	int i[NUMBERS], n[NUMBERS];
 	char cNum[NUMBERS][3] = {"一", "二"};
 	int loop, loop2, loop3;
-	int N[NUMBERS][20];
+	int N[NUMBERS][20] = {0};
 	int tmp;
 	for (loop = 0; loop < NUMBERS; loop++) {
 		printf("測試%s\n", cNum[loop]);
 		do {
 			printf("請輸入i:");
 			scanf("%d", &i[loop]);
-		} while (i[loop] < 1 || i[loop] > 20);
+		} while (i[loop] < 1 || i[loop] > MAX_DIGIT);
 		do {
 			printf("請輸入n:");
 			scanf("%d", &n[loop]);
-		} while (n[loop] < i[loop] || n[loop] > 20);
+		} while (n[loop] < i[loop] || n[loop] > MAX_DIGIT);
 		for (loop2 = 0; loop2 < n[loop]; loop2++) {
 			printf("請輸入第%d個整數:", loop2+1);
 			scanf("%d", &N[loop][loop2]);
@@ -41,6 +48,11 @@ int main(void) {
 			}
 		}
 		
+		#if DEBUG
+			printf("After sorting: ");
+			printArray(N[loop]);
+		#endif
+				
 		printf("%d", N[loop][i[loop]-1]);
 
 		if (loop != NUMBERS-1) {
@@ -49,3 +61,15 @@ int main(void) {
 	}
 	return 0;
 }
+
+#if DEBUG
+void printArray(int N[]) {
+	int	loop;
+	for (loop = 0; loop < MAX_DIGIT; loop++) {
+		printf("%d ", N[loop]);
+	}
+	printf("\n");
+}
+#endif
+
+

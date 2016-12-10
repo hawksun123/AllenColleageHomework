@@ -108,6 +108,7 @@ void DesendingSort(int N[]) {
 #endif
 }
 
+#if DEBUG
 void printArray(int N[]) {
 	int	loop;
 	for (loop = 0; loop < MAX_DIGIT; loop++) {
@@ -115,4 +116,5 @@ void printArray(int N[]) {
 	}
 	printf("\n");
 }
+#endif
 
