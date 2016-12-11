@@ -83,13 +83,14 @@ int MaxContinousOneInBinary(int binaryArray[]) {
 */
 void toBinaryArray(int n, int binaryArray[]) {
 	int	loop;
-	int remainder;
+	
 	int	counter = 0;
 
 #if DEBUG
 	printf("n = %d\n", n);
 #endif
 	while (n > 0) {
+		int remainder;
 		remainder = n % 2;
 		binaryArray[BINARY_WIDTH - ++counter] = remainder;
 		n>>=1;

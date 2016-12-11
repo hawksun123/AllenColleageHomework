@@ -95,9 +95,12 @@ int main(void) {
 void InputPriceReceiptNo(char array[][9], int count) {
   int   loop;
 
+
   for (loop = 0; loop < count; loop++) {
     printf("請輸入第%s個號碼:", chtDigit[loop]);
-    scanf("%s", array[loop]);
+		// scanf("%s" .. may crash the program if user inputs a string and its legth greater than 
+		// RECEIPT_LEN
+    scanf("%8s", array[loop]);
   }
 }
 

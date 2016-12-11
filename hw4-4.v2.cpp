@@ -36,11 +36,11 @@ int main(void) {
   for (loop = 0; loop < NUMBERS; loop++) {
     printf("結果%s:", chtDigit[loop]);
 
-    int total = 0;
     if (numbers[loop] <= 1) {
       printf("不是完美數");
     } else {
       int loop2;
+			int total = 0;
       for (loop2 = 1; loop2 < numbers[loop]; loop2++) {
         if (numbers[loop] % loop2 == 0) {
           total += loop2;
