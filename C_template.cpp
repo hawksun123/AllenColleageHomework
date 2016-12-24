@@ -5,7 +5,7 @@
 #include "c_common.h"
 // #include "c++common.h"
 
-#define DEBUG			1
+#define HSDEBUG			1
 
 // function declaration
 
@@ -13,7 +13,7 @@
 int main(void) {
 
 
-	return SUCCESS;
+  return SUCCESS;
 }
 
 

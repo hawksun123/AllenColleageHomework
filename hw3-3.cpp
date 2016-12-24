@@ -33,7 +33,7 @@
 
 #include "c_common.h"
 
-#define DEBUG 0
+#define HSDEBUG 0
 #define SPECIAL_PRICE_COUNT 3
 #define FIRST_PRICE_COUNT 3
 #define USER_NO_COUNT 3
@@ -65,7 +65,7 @@ int main(void) {
     for (loop2 = 0; loop2 < SPECIAL_PRICE_COUNT; loop2++) {
       if (0 == strcmp(userNo[loop1], specialPrice[loop2])) { // win
         total += price[0];
-#if DEBUG
+#if HSDEBUG
         printf("特別獎獎金%d元\n", total);
 #endif
       }
@@ -76,7 +76,7 @@ int main(void) {
       for (loop3 = 0; loop3 < DIGITS_COMPARE_TIMES; loop3++) {
         if (0 == strcmp((userNo[loop1] + loop3), (firstPrice[loop2] + loop3))) { // win
           total += price[loop3 + 1];
-#if DEBUG
+#if HSDEBUG
           printf("userNo[%d][%d] = %s, firstPrice[%d][%d] = %s\n",\
                      loop1, loop3, userNo[loop1] + loop3, loop2, loop3, firstPrice[loop2] + loop3);
           printf("頭獎獎金%d元\n", total);
@@ -98,8 +98,8 @@ void InputPriceReceiptNo(char array[][9], int count) {
 
   for (loop = 0; loop < count; loop++) {
     printf("請輸入第%s個號碼:", chtDigit[loop]);
-		// scanf("%s" .. may crash the program if user inputs a string and its legth greater than 
-		// RECEIPT_LEN
+    // scanf("%s" .. may crash the program if user inputs a string and its length greater than 
+    // RECEIPT_LEN
     scanf("%8s", array[loop]);
   }
 }

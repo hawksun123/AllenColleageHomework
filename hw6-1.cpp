@@ -35,64 +35,64 @@ Note: Use C standard liberary qsort() to do the sort.
 
 #define NUM_OF_TEST 	2
 #define MAX_DIGIT 20
-#define DEBUG			1
+#define HSDEBUG			1
 
 // function declaration
 int cmpFunc (const void * a, const void * b);
-#if DEBUG
+#if HSDEBUG
 void printArray(int N[]);
 #endif
 
 int main(void) {
-	int i[NUM_OF_TEST], n[NUM_OF_TEST];
-	int N[NUM_OF_TEST][MAX_DIGIT] = { 0 };
+  int i[NUM_OF_TEST], n[NUM_OF_TEST];
+  int N[NUM_OF_TEST][MAX_DIGIT] = { 0 };
 
-	int loop, loop2;
-	for (loop = 0; loop < NUM_OF_TEST; loop++) {
-		printf("測試%s:\n", chtDigit[loop]);
-		do {
-			printf("請輸入i:");
-			scanf("%d", &i[loop]);
-		} while (i[loop] < 1 || i[loop] > MAX_DIGIT);
-		do {
-			printf("請輸入n:");
-			scanf("%d", &n[loop]);
-		} while (n[loop] < i[loop] || n[loop] > MAX_DIGIT);
-		for (loop2 = 0; loop2 < n[loop]; loop2++) {
-			printf("請輸入第%d個整數:", loop2 + 1);
-			scanf("%d", &N[loop][loop2]);
-		}
-#if DEBUG
-	printf("Before sorting: ");
-	printArray(N[loop]);
+  int loop, loop2;
+  for (loop = 0; loop < NUM_OF_TEST; loop++) {
+    printf("測試%s:\n", chtDigit[loop]);
+    do {
+      printf("請輸入i:");
+      scanf("%d", &i[loop]);
+    } while (i[loop] < 1 || i[loop] > MAX_DIGIT);
+    do {
+      printf("請輸入n:");
+      scanf("%d", &n[loop]);
+    } while (n[loop] < i[loop] || n[loop] > MAX_DIGIT);
+    for (loop2 = 0; loop2 < n[loop]; loop2++) {
+      printf("請輸入第%d個整數:", loop2 + 1);
+      scanf("%d", &N[loop][loop2]);
+    }
+#if HSDEBUG
+  printf("Before sorting: ");
+  printArray(N[loop]);
 #endif
-		qsort(N[loop], n[loop], sizeof(int), cmpFunc);
-#if DEBUG
-	printf("After sorting: ");
-	printArray(N[loop]);
+    qsort(N[loop], n[loop], sizeof(int), cmpFunc);
+#if HSDEBUG
+  printf("After sorting: ");
+  printArray(N[loop]);
 #endif
-	}
+  }
 
-	for (loop = 0; loop < NUM_OF_TEST; loop++) {
-		printf("結果%s:", chtDigit[loop]);
-		printf("%d", N[loop][i[loop] - 1]);
-		if (loop != NUM_OF_TEST - 1) {
-			printf("\n");
-		}
-	}
-	return SUCCESS;
+  for (loop = 0; loop < NUM_OF_TEST; loop++) {
+    printf("結果%s:", chtDigit[loop]);
+    printf("%d", N[loop][i[loop] - 1]);
+    if (loop != NUM_OF_TEST - 1) {
+      printf("\n");
+    }
+  }
+  return SUCCESS;
 }
 
 void printArray(int N[]) {
-	int	loop;
-	for (loop = 0; loop < MAX_DIGIT; loop++) {
-		printf("%d ", N[loop]);
-	}
-	printf("\n");
+  int	loop;
+  for (loop = 0; loop < MAX_DIGIT; loop++) {
+    printf("%d ", N[loop]);
+  }
+  printf("\n");
 }
 
 /*
-	Tell qsort() to do the decending sort
+  Tell qsort() to do the decending sort
 */
 int cmpFunc (const void * a, const void * b) {
    return ( *(int*)b - *(int*)a );

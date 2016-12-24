@@ -3,7 +3,7 @@
 
 int main(void)
 {
-	int a[2];
+  int a[2];
   double c[2];
 
   int loop;
@@ -34,6 +34,6 @@ int main(void)
 
   }
 
-	
-	return 0;
+  
+  return 0;
 }

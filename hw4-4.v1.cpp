@@ -40,7 +40,7 @@ int main(void) {
       cout << "不是完美數";
     } else {
       int loop2;
-			int total = 0;
+      int total = 0;
       for (loop2 = 1; loop2 < numbers[loop]; loop2++) {
         if (numbers[loop] % loop2 == 0) { // is it a factor of numbers[loop] ?
           total += loop2;

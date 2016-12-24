@@ -23,84 +23,84 @@
 #define NUM_OF_TEST 		2
 #define MAX_NUM				255
 #define BINARY_WIDTH		8
-#define DEBUG						1
+#define HSDEBUG						1
 
 // function declaration
 int 	MaxContinousOneInBinary(int binaryArray[]);
 void	toBinaryArray(int n, int binaryArray[]);
 
 int main(void) {
-	int n[NUM_OF_TEST];
-	int loop;
-	int	binaryArray[NUM_OF_TEST][BINARY_WIDTH] = { 0 };
+  int n[NUM_OF_TEST];
+  int loop;
+  int	binaryArray[NUM_OF_TEST][BINARY_WIDTH] = { 0 };
 
-	for (loop = 0; loop < NUM_OF_TEST; loop++) {
-		printf("測試%s:\n", chtDigit[loop]);
-		do {
-			printf("請輸入整數:");
-			scanf("%d", &n[loop]);
-		} while (n[loop] < 1 || n[loop] > MAX_NUM);
-		toBinaryArray(n[loop], binaryArray[loop]);
-	}
+  for (loop = 0; loop < NUM_OF_TEST; loop++) {
+    printf("測試%s:\n", chtDigit[loop]);
+    do {
+      printf("請輸入整數:");
+      scanf("%d", &n[loop]);
+    } while (n[loop] < 1 || n[loop] > MAX_NUM);
+    toBinaryArray(n[loop], binaryArray[loop]);
+  }
 
-	for (loop = 0; loop < NUM_OF_TEST; loop++) {
-		printf("結果%s:", chtDigit[loop]);
-		printf("%d", MaxContinousOneInBinary(binaryArray[loop]));
-		if (loop != NUM_OF_TEST - 1) {
-			printf("\n");
-		}
-	}
-	return SUCCESS;
+  for (loop = 0; loop < NUM_OF_TEST; loop++) {
+    printf("結果%s:", chtDigit[loop]);
+    printf("%d", MaxContinousOneInBinary(binaryArray[loop]));
+    if (loop != NUM_OF_TEST - 1) {
+      printf("\n");
+    }
+  }
+  return SUCCESS;
 }
 /*
 
-	Count the max number of continous one in a number in its binary format
+  Count the max number of continous one in a number in its binary format
 
 */
 int MaxContinousOneInBinary(int binaryArray[]) {
-	int	numOfContinousOne = 0;
-	int	maxNumOfContinousOne = 0;
-	int	loop;
+  int	numOfContinousOne = 0;
+  int	maxNumOfContinousOne = 0;
+  int	loop;
 
-	for (loop = 0; loop < BINARY_WIDTH; loop++) {
-		if (binaryArray[loop]) {
-			numOfContinousOne++;
-		} else {
-			if (maxNumOfContinousOne < numOfContinousOne) {
-				maxNumOfContinousOne = numOfContinousOne;
-				numOfContinousOne = 0;
-			}
-		}
-	}
-	if (0 == maxNumOfContinousOne) {
-		maxNumOfContinousOne = numOfContinousOne;
-	}
-	return	maxNumOfContinousOne;
+  for (loop = 0; loop < BINARY_WIDTH; loop++) {
+    if (binaryArray[loop]) {
+      numOfContinousOne++;
+    } else {
+      if (maxNumOfContinousOne < numOfContinousOne) {
+        maxNumOfContinousOne = numOfContinousOne;
+        numOfContinousOne = 0;
+      }
+    }
+  }
+  if (0 == maxNumOfContinousOne) {
+    maxNumOfContinousOne = numOfContinousOne;
+  }
+  return	maxNumOfContinousOne;
 }
 
 /*
-	Convert the input number n to a binary array binaryArray[]
+  Convert the input number n to a binary array binaryArray[]
 */
 void toBinaryArray(int n, int binaryArray[]) {
-	int	loop;
-	
-	int	counter = 0;
+  int	loop;
+  
+  int	counter = 0;
 
-#if DEBUG
-	printf("n = %d\n", n);
+#if HSDEBUG
+  printf("n = %d\n", n);
 #endif
-	while (n > 0) {
-		int remainder;
-		remainder = n % 2;
-		binaryArray[BINARY_WIDTH - ++counter] = remainder;
-		n>>=1;
-	}
+  while (n > 0) {
+    int remainder;
+    remainder = n % 2;
+    binaryArray[BINARY_WIDTH - ++counter] = remainder;
+    n>>=1;
+  }
 
-#if DEBUG
-	for	(loop = 0; loop < BINARY_WIDTH; loop++) {
-		printf("%d", binaryArray[loop]);
-	}
-	printf("b\n");
+#if HSDEBUG
+  for	(loop = 0; loop < BINARY_WIDTH; loop++) {
+    printf("%d", binaryArray[loop]);
+  }
+  printf("b\n");
 #endif
 }
 
